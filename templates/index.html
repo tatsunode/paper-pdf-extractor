@@ -1,0 +1,8 @@
+{% extends "layout.html" %}
+{% block content %}
+  <h1>File Upload With Responder</h1>
+  <form id="fileupload" action="/upload" method="post" enctype="multipart/form-data">
+      <input name="file" type="file"/>
+      <button type="submit">送信</button>
+  </form>
+{% endblock %}
