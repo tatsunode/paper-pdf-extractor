@@ -66,14 +66,17 @@ async def greet_world(req, resp):
 @api.route("/upload")
 async def sync_upload_file(req, resp):
 
+    print("access")
+
     data = await req.media(format='files')
     file_path = './temp/{}.pdf'.format(str(uuid.uuid4()))
     file=data['file']
     with open(file_path, 'wb') as f:
         f.write(file['content'])
-    text = main(file_path)
+    text = extract_text(file_path)
+    # print(text)
 
-    os.remove(file_path)
+    # os.remove(file_path)
 
     resp.content = api.template('success.html', {'text':text})
 
