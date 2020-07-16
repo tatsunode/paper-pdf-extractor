@@ -3,5 +3,22 @@
   <h1>File Upload With Responder(Result)</h1>
   <p>ファイルをアップロードしました。</p>
   <a href="#" onclick="history.back(-1); return false;">戻る</a>
-  <p>{{text}}</p>
+  <div>
+    {% if paper.is_japanese %}
+    <p>日本語論文</p>
+    {% endif %}
+  </div>
+  <div>
+    {% for page in paper.pages %}
+      <img width=100 src="/{{page.image_path}}">
+      <p>{{page.full_text}}</p>
+        <!--
+      {% for content in page.contents %}
+        {% if content.type == 'text' %}
+        <p>{{content.text}}</p>
+        {% endif %}
+      {% endfor %}
+      -->
+    {% endfor %}
+  </div>
 {% endblock %}
