@@ -24,9 +24,6 @@ async def greet_world(req, resp):
 
 @api.route("/upload")
 async def sync_upload_file(req, resp):
-
-    print("access")
-
     data = await req.media(format='files')
     file_path = './temp/{}.pdf'.format(str(uuid.uuid4()))
     file=data['file']
@@ -52,4 +49,8 @@ async def sync_upload_file(req, resp):
     resp.content = api.template('success.html', paper=paper)
 
 if __name__ == '__main__':
-    api.run()
+
+    if 'PROD' in os.environ:
+        api.run(address='0.0.0.0', port=80)
+    else:
+        api.run()
