@@ -1,24 +1,34 @@
 {% extends "layout.html" %}
 {% block content %}
-  <h1>File Upload With Responder(Result)</h1>
-  <p>ファイルをアップロードしました。</p>
+
+<div>
+  <p>File Uploaed</p>
   <a href="#" onclick="history.back(-1); return false;">戻る</a>
-  <div>
-    {% if paper.is_japanese %}
-    <p>日本語論文</p>
-    {% endif %}
+</div>
+
+<div class="pages">
+  {% for page in paper.pages %}
+  <div class="page">
+    <h2>page: {{loop.index0}}</h2>
+    <div class="columns">
+      <div class="column is-2">
+        <div>
+          <a target="_blank" rel="noopener noreferrer" href="{{page.image_path}}"><img src="/{{page.image_path}}"></a>
+        </div>
+      </div>
+      <div class="column is-8">
+        <div class="container text">
+          {% for cluster in page.elements %}
+          <div class="cluster">
+            <p>{{cluster.full_text}}</p>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+      <div class="column is-2">
+      </div>
+    </div>
   </div>
-  <div>
-    {% for page in paper.pages %}
-      <img width=100 src="/{{page.image_path}}">
-      <p>{{page.full_text}}</p>
-        <!--
-      {% for content in page.contents %}
-        {% if content.type == 'text' %}
-        <p>{{content.text}}</p>
-        {% endif %}
-      {% endfor %}
-      -->
-    {% endfor %}
-  </div>
+  {% endfor %}
+</div>
 {% endblock %}

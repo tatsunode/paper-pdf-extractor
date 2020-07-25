@@ -2,7 +2,8 @@ from pathlib import Path
 import uuid
 import os
 
-from analizer import *
+from analyzer import Extractor
+from pdf2image import convert_from_path, convert_from_bytes
 
 import responder
 import requests
@@ -31,10 +32,24 @@ async def sync_upload_file(req, resp):
     file=data['file']
     with open(file_path, 'wb') as f:
         f.write(file['content'])
-    paper_data = extract_pdf(file_path)
+    
+    # Extract PDF
+    extractor = Extractor(file_path)
+    pages = extractor.exec()
+    paper = {
+        "pages": pages
+    }
 
-    resp.content = api.template('success.html', paper=paper_data)
+    # Get Images
+    pdf_images = convert_from_path(file_path)
+    file_name = file_path.split(".") [0]
 
+    for page_index, image in enumerate(pdf_images):
+        image_path = "static/{}-{}.jpg".format(file_name, page_index)
+        image.save(image_path, quality=80)
+        paper['pages'][page_index]['image_path'] = image_path
+
+    resp.content = api.template('success.html', paper=paper)
 
 if __name__ == '__main__':
     api.run()

@@ -140,3 +140,4 @@ cython_debug/
 temp/
 *.pdf
 *.jpg
+*.json
