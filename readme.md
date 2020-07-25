@@ -12,3 +12,8 @@ python analyzer.py sample.pdf
 ```
 out.jsonに構造の出力
 
+## server起動
+
+```sh
+python server.py
+```
