@@ -20,8 +20,6 @@ from pdfminer.layout import (
     LTFigure
 )
 
-
-
 class Extractor:
 
     def __init__(self, pdf_file_path):

@@ -41,12 +41,12 @@ async def sync_upload_file(req, resp):
     }
 
     # Get Images
-    pdf_images = convert_from_path(file_path)
-    file_name = file_path.split(".") [0]
+    pdf_images = convert_from_path(file_path, output_folder='./temp')
+    file_name = os.path.splitext(os.path.basename(file_path))[0]
 
     for page_index, image in enumerate(pdf_images):
         image_path = "static/{}-{}.jpg".format(file_name, page_index)
-        image.save(image_path, quality=80)
+        image.save(image_path, quality=50)
         paper['pages'][page_index]['image_path'] = image_path
 
     resp.content = api.template('success.html', paper=paper)
