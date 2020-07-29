@@ -1,8 +1,37 @@
 {% extends "layout.html" %}
 {% block content %}
-  <h1>Upload PDF</h1>
-  <form id="fileupload" action="/upload" method="post" enctype="multipart/form-data">
-      <input name="file" type="file"/>
-      <button type="submit">送信</button>
-  </form>
+<h1>Drag and drop a file here for Upload PDF</h1>
+
+<link rel="stylesheet" type="text/css" href="/static/css/style.css">  
+<link rel="stylesheet" type="text/css" href="/static/css/dropify.css">
+<link rel="stylesheet" type="text/css" href="/static/css/style.css">
+<script src="/static/js/jquery.js"></script>
+<script src="/static/js/dropify.js"></script>
+<div class="uplode_block">
+<form id="fileupload" action="/upload" method="post" enctype="multipart/form-data">
+  <table width="330">
+    <tr>
+        <td>
+          <input type="file" class="dropify" name="file"/>
+          <!-- <input name="file" type="file"/> -->
+          <button type="submit">送信</button>
+        </td>
+    </tr>
+  </table>
+</form>
+</div>
+<!-- <input type="file" class="dropify" name="file"> -->
+
+<script>
+  $(document).ready(function(){
+    $('.dropify').dropify();
+  });
+</script>
+
+<h1>もしくは以下をクリックしてファイルを選択してください</h1>
+<form id="fileupload" action="/upload" method="post" enctype="multipart/form-data">
+  <input name="file" type="file"/>
+  <button type="submit">送信</button>
+</form>
+  
 {% endblock %}
